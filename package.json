@@ -22,8 +22,7 @@
   "scripts": {
     "linter": "eslint .",
     "build": "webpack --progress --colors",
-    "watch": "nodemon --ext js,scss,css --exec 'node ./node_modules/.bin/webpack --color'",
-    "build.prod": "brunch build --production"
+    "watch": "nodemon --ext js,scss,css --exec 'node ./node_modules/.bin/webpack --color'"
   },
   "dependencies": {
     "autoprefixer": "^6.5.1",
