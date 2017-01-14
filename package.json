@@ -7,7 +7,7 @@
   "main": "Ready to use Front-End boilerplate based on ES6 and PostCSS (and Webpack)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vforge/front-glue"
+    "url": "git+https://github.com/vforge/front-glue.git"
   },
   "keywords": [
     "build tool",
@@ -50,5 +50,9 @@
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.4.1",
     "webpack-notifier": "^1.5.0"
+  },
+  "homepage": "https://github.com/vforge/front-glue#readme",
+  "directories": {
+    "doc": "docs"
   }
 }
