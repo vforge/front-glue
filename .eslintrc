@@ -10,10 +10,10 @@
     "$"
   },
   "rules": {
-    "indent": [2, "space", {"VariableDeclarator": 1, "SwitchCase": 1}],
-    "max-len": [2, 120, 2],
-    "object-curly-spacing": [2, "never"],
-    "quotes": [2, "single", {"allowTemplateLiterals": true}],
+    "indent": ["error", 2, {"VariableDeclarator": 1, "SwitchCase": 1}],
+    "max-len": ["error", 120, 2],
+    "object-curly-spacing": ["error", "never"],
+    "quotes": ["error", "single", {"allowTemplateLiterals": true}],
     "import/extensions": 0,
     "import/no-unresolved": 0
   }
