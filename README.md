@@ -1,5 +1,6 @@
 [![npm][npm]][npm-url]
 [![node][node]][node-url]
+[![tavis][tavis]][tavis-url]
 
 # front-glue
 Ready to use Front-End boilerplate based on ES6 and PostCSS (and Webpack)
@@ -19,3 +20,6 @@ npm run build
 
 [node]: https://img.shields.io/node/v/front-glue.svg
 [node-url]: https://nodejs.org
+
+[travis]: https://img.shields.io/travis/vforge/front-glue.svg
+[travis-url]: https://travis-ci.org/vforge/front-glue
