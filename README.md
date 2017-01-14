@@ -2,6 +2,10 @@
 [![node][node]][node-url]
 [![travis][travis]][travis-url]
 
+<div style="border:1px solid #f00;color:#f00">
+  <strong>Warning</strong> This repository is currently WiP.
+</div>
+
 # front-glue
 Ready to use Front-End boilerplate based on ES6 and PostCSS (and Webpack)
 
