@@ -11,9 +11,14 @@ npm install
 ```
 
 ## Running
+1. Replace files in `./scripts` and `./styles` directories.
+
+2.
 ```bash
 npm run build
 ```
+
+3. Output files are put in `./build` direcotry.
 
 [npm]: https://img.shields.io/npm/v/front-glue.svg
 [npm-url]: https://npmjs.com/package/front-glue
