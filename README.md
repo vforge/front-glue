@@ -1,6 +1,6 @@
 [![npm][npm]][npm-url]
 [![node][node]][node-url]
-[![tavis][tavis]][tavis-url]
+[![travis][travis]][travis-url]
 
 # front-glue
 Ready to use Front-End boilerplate based on ES6 and PostCSS (and Webpack)
