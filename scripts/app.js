@@ -1,1 +1,7 @@
-$(() => console.log(`It works!`));
+import handlebarsTest from "./template.handlebars";
+
+$(() => {
+  console.log(handlebarsTest({
+    test: 'HBS template',
+  }));
+});

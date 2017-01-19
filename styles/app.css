@@ -1,4 +1,6 @@
-@import "~normalize";
+/* import "~normalize"; */
+
+@import "test";
 
 body {
   background: #fff;

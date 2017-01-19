@@ -26,59 +26,75 @@ module.exports = {
       'normalize': path.join(__dirname, '/node_modules/normalize.css/normalize.css'),
     },
     modules: ['./node_modules', './scripts', './styles'],
-    extensions: ['', '.js', '.scss']
-  },
-  resolveLoader: {
-    root: path.join(__dirname, 'node_modules')
+    extensions: ['.js', '.css', '.scss']
   },
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.css$/,
-        loader: cssExtract.extract('style', 'css!postcss-loader')
-      },
-      {
-        test: /\.scss$/,
-        loader: cssExtract.extract('style', 'css!postcss-loader!sass')
+        test: /\.s?css$/,
+        // loader: 'css-loader'
+        loader: cssExtract.extract({
+          fallbackLoader: 'style-loader',
+          loader: [
+            'css-loader',
+            'postcss-loader',
+            'sass-loader'
+          ]
+        })
       },
       {
         test: /\.svg$/,
-        loader: svgExtract.extract('raw')
+        loader: svgExtract.extract({
+          loader: 'raw-loader'
+        })
       },
       {
         test: /.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
+      },
+      {
+        test: /\.handlebars$/,
+        loader: 'handlebars-loader'
       }
     ]
   },
   plugins: [
+      new webpack.LoaderOptionsPlugin({
+        options: {
+          postcss: [
+            require('postcss-cssnext'),
+            // require('lost')(),
+            // require('postcss-reporter')()
+          ],
+          sassLoader: {
+            includePaths: [
+              path.join(__dirname, 'styles')
+            ]
+          },
+        }
+      }),
       new WebpackNotifierPlugin({
         alwaysNotify: true
       }),
-      new webpack.ProvidePlugin({
-          $: 'jquery',
-          jQuery: 'jquery'
-      }),
+      // new webpack.ProvidePlugin({
+      //     $: 'jquery',
+      //     jQuery: 'jquery'
+      // }),
       cssExtract,
       svgExtract
   ],
-  postcss: function (webpack) {
-    return [
-      // require("postcss-import")({ addDependencyTo: webpack }),
-      // require("postcss-url")(),
-      require("postcss-cssnext")(),
-      // add your "plugins" here
-      // ...
-      // and if you want to compress,
-      // just use css-loader option that already use cssnano under the hood
-      // require("postcss-browser-reporter")(),
-      // require("postcss-reporter")(),
-    ]
-  },
-  sassLoader: {
-    includePaths: [
-      path.join(__dirname, 'styles')
-    ]
-  }
+  // postcss: function (webpack) {
+  //   return [
+  //     // require("postcss-import")({ addDependencyTo: webpack }),
+  //     // require("postcss-url")(),
+  //     require("postcss-cssnext")(),
+  //     // add your "plugins" here
+  //     // ...
+  //     // and if you want to compress,
+  //     // just use css-loader option that already use cssnano under the hood
+  //     // require("postcss-browser-reporter")(),
+  //     // require("postcss-reporter")(),
+  //   ]
+  // },
 };
