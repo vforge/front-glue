@@ -17,9 +17,14 @@ npm install
 ## Running
 Replace files in `./scripts` and `./styles` directories.
 
-```bash
-npm run build
-```
+* `npm run build.dev` will build dev version of the source
+* `npm run build.prog` will build production version of the source
+
+Alternatively you can use the following commands for watching the files and
+rebuilding them automatically:
+
+* `npm run watch.dev` will build dev version of the source
+* `npm run watch.prog` will build production version of the source
 
 Output files are put in `./build` direcotry.
 

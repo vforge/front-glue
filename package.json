@@ -4,7 +4,7 @@
   "description": "front-glue",
   "author": "Bartosz V. Bentkowski <me@bartoszbentkowski.com>",
   "license": "MIT",
-  "main": "Ready to use Front-End boilerplate based on ES6 and PostCSS (and Webpack)",
+  "main": "Ready to use Front-End boilerplate based on ES6 and PostCSS (and Webpack 2)",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vforge/front-glue.git"
@@ -14,7 +14,9 @@
     "frontend",
     "es6",
     "prostcss",
-    "webpack"
+    "sass",
+    "webpack",
+    "webpack 2"
   ],
   "bugs": {
     "url": "https://github.com/vforge/front-glue/issues"
