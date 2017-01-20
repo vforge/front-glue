@@ -1,5 +1,5 @@
 [![npm][npm]][npm-url]
-[![node][node]][node-url]
+[![release][release]][release-url]
 [![travis][travis]][travis-url]
 
 <div style="border:1px solid #f00;color:#f00">
@@ -32,8 +32,8 @@ Output files are put in `./build` direcotry.
 [npm]: https://img.shields.io/npm/v/front-glue.svg
 [npm-url]: https://npmjs.com/package/front-glue
 
-[node]: https://img.shields.io/node/v/front-glue.svg
-[node-url]: https://nodejs.org
+[release]: https://img.shields.io/github/release/vforge/front-glue.svg
+[release-url]: https://github.com/vforge/front-glue/releases
 
 [travis]: https://img.shields.io/travis/vforge/front-glue.svg
 [travis-url]: https://travis-ci.org/vforge/front-glue
