@@ -24,6 +24,13 @@ rebuilding them automatically:
 
 Output files are put in `./build` direcotry.
 
+## Linting
+There's a build-in ESLint:
+
+```bash
+npm run linter
+```
+
 
 [npm]: https://img.shields.io/npm/v/front-glue.svg
 [npm-url]: https://npmjs.com/package/front-glue
