@@ -1,8 +1,8 @@
 # Output
-build/*.js
-build/*.css
-build/*.map
-# build/assets/*
+build/*
+!build/.keep
+build/assets/*
+!build/assets/.keep
 
 # Logs
 logs
