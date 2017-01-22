@@ -25,8 +25,8 @@
     "linter": "eslint .",
     "build.dev":  "webpack --progress --colors --hide-modules",
     "build.prod": "webpack --progress --colors --verbose -p",
-    "watch.dev":  "webpack --progress --colors --hide-modules --watch",
-    "watch.prod": "webpack --progress --colors --verbose -p --watch"
+    "watch.dev":  "npm run build.dev  && watchman-make -p 'source/**' 'webpack.config.js' --make 'npm run' -t 'build.dev'",
+    "watch.prod": "npm run build.prod && watchman-make -p 'source/**' 'webpack.config.js' --make 'npm run' -t 'build.prod'"
   },
   "dependencies": {
     "autoprefixer": "^6.6.1",
