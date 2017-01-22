@@ -23,10 +23,10 @@
   },
   "scripts": {
     "linter": "eslint .",
-    "build.dev": "webpack --progress --colors --hide-modules",
+    "build.dev":  "webpack --progress --colors --hide-modules",
     "build.prod": "webpack --progress --colors --verbose -p",
-    "watch.dev": "nodemon  --ext js,scss,css --ignore 'build/*' --exec 'node ./node_modules/.bin/webpack --progress --colors --hide-modules'",
-    "watch.prod": "nodemon --ext js,scss,css --ignore 'build/*' --exec 'node ./node_modules/.bin/webpack --progress --colors --verbose -p'"
+    "watch.dev":  "webpack --progress --colors --hide-modules --watch",
+    "watch.prod": "webpack --progress --colors --verbose -p --watch"
   },
   "dependencies": {
     "autoprefixer": "^6.6.1",
