@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
-var cssnext = require('postcss-cssnext');
+
+var CopyWebpackPlugin = require('copy-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var WebpackNotifierPlugin = require('webpack-notifier');
 
@@ -12,8 +13,8 @@ module.exports = {
   devtool: 'cheap-module-source-map',
   entry: {
     app: [
-      './scripts/app.js',
-      './styles/app.css'
+      './source/scripts/app.js',
+      './source/styles/app.css'
     ]
   },
   output: {
@@ -25,14 +26,13 @@ module.exports = {
       jquery: 'jquery/src/jquery',
       'normalize': path.join(__dirname, '/node_modules/normalize.css/normalize.css'),
     },
-    modules: ['./node_modules', './scripts', './styles'],
+    modules: ['./node_modules', './source/scripts', './source/styles'],
     extensions: ['.js', '.css', '.scss']
   },
   module: {
     rules: [
       {
         test: /\.s?css$/,
-        // loader: 'css-loader'
         loader: cssExtract.extract({
           fallbackLoader: 'style-loader',
           loader: [
@@ -60,29 +60,32 @@ module.exports = {
     ]
   },
   plugins: [
-      new webpack.LoaderOptionsPlugin({
-        options: {
-          postcss: [
-            require('postcss-cssnext'),
-            // require('lost')(),
-            // require('postcss-reporter')()
-          ],
-          sassLoader: {
-            includePaths: [
-              path.join(__dirname, 'styles')
-            ]
-          },
-        }
-      }),
-      new WebpackNotifierPlugin({
-        alwaysNotify: true
-      }),
-      // new webpack.ProvidePlugin({
-      //     $: 'jquery',
-      //     jQuery: 'jquery'
-      // }),
-      cssExtract,
-      svgExtract
+    new CopyWebpackPlugin([
+      { from: 'source/assets', to: 'assets' }
+    ]),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        postcss: [
+          require('postcss-cssnext'),
+          // require('lost')(),
+          // require('postcss-reporter')()
+        ],
+        sassLoader: {
+          includePaths: [
+            path.join(__dirname, 'styles')
+          ]
+        },
+      }
+    }),
+    new WebpackNotifierPlugin({
+      alwaysNotify: true
+    }),
+    // new webpack.ProvidePlugin({
+    //     $: 'jquery',
+    //     jQuery: 'jquery'
+    // }),
+    cssExtract,
+    svgExtract
   ],
   // postcss: function (webpack) {
   //   return [

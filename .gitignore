@@ -2,6 +2,7 @@
 build/*.js
 build/*.css
 build/*.map
+# build/assets/*
 
 # Logs
 logs
