@@ -1,33 +1,35 @@
-var path = require('path');
-var webpack = require('webpack');
+// read config from argv
+const prod = process.argv.indexOf('-p') !== -1;
+const notify = process.argv.indexOf('--env.notify') !== -1;
 
-var CopyWebpackPlugin = require('copy-webpack-plugin')
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var WebpackNotifierPlugin = require('webpack-notifier');
+console.log(`=> ${prod ? 'Production' : 'Development'} build ${notify ? '(notify)' : ''}`);
 
-var cssExtract = new ExtractTextPlugin('[name].css');
-var svgExtract = new ExtractTextPlugin('[name].svg');
+// boot
+const path = require('path');
+const webpack = require('webpack');
 
-module.exports = {
-  cache: false,
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const WebpackNotifierPlugin = require('webpack-notifier');
+
+const cssExtract = new ExtractTextPlugin('[name].css');
+const svgExtract = new ExtractTextPlugin('[name].svg');
+
+const config = {
   devtool: 'cheap-module-source-map',
   entry: {
     app: [
       './source/scripts/app.js',
-      './source/styles/app.css'
-    ]
+      './source/styles/app.css',
+    ],
   },
   output: {
     path: path.join(__dirname, 'build/'),
-    filename: '[name].js'
+    filename: '[name].js',
   },
   resolve: {
-    alias: {
-      jquery: 'jquery/src/jquery',
-      'normalize': path.join(__dirname, '/node_modules/normalize.css/normalize.css'),
-    },
     modules: ['./node_modules', './source/scripts', './source/styles'],
-    extensions: ['.js', '.css', '.scss']
+    extensions: ['.js', '.css', '.scss'],
   },
   module: {
     rules: [
@@ -38,15 +40,15 @@ module.exports = {
           loader: [
             'css-loader',
             'postcss-loader',
-            'sass-loader'
-          ]
-        })
+            'sass-loader',
+          ],
+        }),
       },
       {
         test: /\.svg$/,
         loader: svgExtract.extract({
-          loader: 'raw-loader'
-        })
+          loader: 'raw-loader',
+        }),
       },
       {
         test: /.js$/,
@@ -55,15 +57,21 @@ module.exports = {
       },
       {
         test: /\.handlebars$/,
-        loader: 'handlebars-loader'
-      }
-    ]
+        loader: 'handlebars-loader',
+      },
+    ],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': (prod ? '"production"' : '""'),
+      },
+    }),
     new CopyWebpackPlugin([
-      { from: 'source/assets', to: 'assets' }
+      { from: 'source/assets', to: 'assets' },
     ]),
     new webpack.LoaderOptionsPlugin({
+      minimize: prod,
       options: {
         postcss: [
           require('postcss-cssnext'),
@@ -72,32 +80,41 @@ module.exports = {
         ],
         sassLoader: {
           includePaths: [
-            path.join(__dirname, 'styles')
-          ]
+            path.join(__dirname, 'styles'),
+          ],
         },
       }
     }),
-    new WebpackNotifierPlugin({
-      alwaysNotify: true
+    new webpack.ProvidePlugin({
+        $: 'jquery',
     }),
-    // new webpack.ProvidePlugin({
-    //     $: 'jquery',
-    //     jQuery: 'jquery'
-    // }),
     cssExtract,
-    svgExtract
+    svgExtract,
   ],
-  // postcss: function (webpack) {
-  //   return [
-  //     // require("postcss-import")({ addDependencyTo: webpack }),
-  //     // require("postcss-url")(),
-  //     require("postcss-cssnext")(),
-  //     // add your "plugins" here
-  //     // ...
-  //     // and if you want to compress,
-  //     // just use css-loader option that already use cssnano under the hood
-  //     // require("postcss-browser-reporter")(),
-  //     // require("postcss-reporter")(),
-  //   ]
-  // },
 };
+
+// environment-dependant configuration
+if (prod) {
+  config.plugins.push(
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        screw_ie8: true
+      }
+    })
+  );
+} else {
+  config.devtool = '#cheap-module-source-map';
+}
+
+// add notify only if it's enabled
+if (notify) {
+  const WebpackNotifierPlugin = require('webpack-notifier');
+
+  config.plugins.push(
+    new WebpackNotifierPlugin({
+      alwaysNotify: true,
+    })
+  );
+}
+
+module.exports = config;
