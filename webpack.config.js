@@ -1,3 +1,9 @@
+// read config from the file
+const yaml = require('js-yaml');
+const fs = require('fs');
+
+const config = yaml.safeLoad(fs.readFileSync('config.yml', 'utf8'));
+
 // read config from argv
 const prod = process.argv.indexOf('-p') !== -1;
 const notify = process.argv.indexOf('--env.notify') !== -1;
@@ -8,27 +14,20 @@ console.log(`=> ${prod ? 'Production' : 'Development'} build ${notify ? '(notify
 const path = require('path');
 const webpack = require('webpack');
 
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 
 const cssExtract = new ExtractTextPlugin('[name].css');
 const svgExtract = new ExtractTextPlugin('[name].svg');
 
-const config = {
-  devtool: 'cheap-module-source-map',
-  entry: {
-    app: [
-      './source/scripts/app.js',
-      './source/styles/app.css',
-    ],
-  },
+const webpackConfig = {
+  entry: config.input,
   output: {
-    path: path.join(__dirname, 'build/'),
+    path: path.join(__dirname, config.output),
     filename: '[name].js',
   },
   resolve: {
-    modules: ['./node_modules', './source/scripts', './source/styles'],
+    modules: ['./node_modules', ...config.sources],
     extensions: ['.js', '.css', '.scss'],
   },
   module: {
@@ -67,9 +66,6 @@ const config = {
         'NODE_ENV': (prod ? '"production"' : '""'),
       },
     }),
-    new CopyWebpackPlugin([
-      { from: 'source/assets', to: 'assets' },
-    ]),
     new webpack.LoaderOptionsPlugin({
       minimize: prod,
       options: {
@@ -95,7 +91,7 @@ const config = {
 
 // environment-dependant configuration
 if (prod) {
-  config.plugins.push(
+  webpackConfig.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         screw_ie8: true
@@ -103,18 +99,18 @@ if (prod) {
     })
   );
 } else {
-  config.devtool = '#cheap-module-source-map';
+  webpackConfig.devtool = '#cheap-module-source-map';
 }
 
 // add notify only if it's enabled
 if (notify) {
   const WebpackNotifierPlugin = require('webpack-notifier');
 
-  config.plugins.push(
+  webpackConfig.plugins.push(
     new WebpackNotifierPlugin({
       alwaysNotify: true,
     })
   );
 }
 
-module.exports = config;
+module.exports = webpackConfig;

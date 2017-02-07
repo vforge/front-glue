@@ -1,0 +1,8 @@
+sources:
+- source/scripts/
+- source/styles/
+input:
+  app:
+  - ./source/scripts/app.js
+  - ./source/styles/app.css
+output: build/
