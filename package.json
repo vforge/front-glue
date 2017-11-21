@@ -29,7 +29,7 @@
     "watch:prod": "npm run build:prod && watchman-make -p 'source/**' 'webpack.config.js' --make 'npm run' -t 'build:prod'"
   },
   "dependencies": {
-    "autoprefixer": "^6.6.1",
+    "autoprefixer": "^7.0.0",
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.16.0",
