@@ -41,7 +41,7 @@
     "jquery": "^3.1.1",
     "js-yaml": "^3.8.1",
     "modules": "^0.4.0",
-    "node-sass": "^3.10.1",
+    "node-sass": "^4.0.0",
     "normalize.css": "^7.0.0",
     "postcss-cssnext": "^2.9.0",
     "postcss-loader": "^1.0.0",
